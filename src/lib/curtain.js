@@ -23,6 +23,7 @@ export function createCurtain({ smooth = null, reduce = false } = {}) {
     return top;
   };
   const jump = dest => {
+    dispatchEvent(new CustomEvent('ricocat:jump-start'));
     const y = destY(dest);
     if (smooth?.jump) smooth.jump(y);
     else { const el = document.documentElement, b = el.style.scrollBehavior; el.style.scrollBehavior = 'auto'; scrollTo(0, y); el.style.scrollBehavior = b; }

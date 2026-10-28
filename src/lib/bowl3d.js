@@ -351,7 +351,10 @@ export function createBowlScene(root, { reduce = false, follow = 0.08, smooth: s
   };
   window.__ricocatScrollGate = gate;
   // táctil / scroll nativo
-  let lastY = scrollY, touchLock = 0, lastWheel = 0, lastTouch = 0;
+  let lastY = scrollY, touchLock = 0, lastWheel = 0, lastTouch = 0, jumpFree = 0;
+  const onJumpFree = () => { jumpFree = performance.now() + 900; lastY = scrollY; };
+  addEventListener('ricocat:jump', onJumpFree);
+  addEventListener('ricocat:jump-start', onJumpFree);
   const onWheelMark = () => { lastWheel = performance.now(); };
   const onTouchMark = () => { lastTouch = performance.now(); };
   addEventListener('wheel', onWheelMark, { passive: true });
@@ -363,6 +366,8 @@ export function createBowlScene(root, { reduce = false, follow = 0.08, smooth: s
     const y = scrollY, from = lastY; lastY = y;
     // solo scroll del dedo (o su inercia): saltos programados (volver arriba, anclas) no se frenan
     if (reduce || performance.now() - lastWheel < 250 || performance.now() - lastTouch > 1500) return;
+    // saltos (volver arriba, anclas, transiciones): nunca se frenan
+    if (performance.now() < jumpFree || Math.abs(y - from) > innerHeight * 1.2) return;
     const now = performance.now();
     if (now < touchLock) return;
     rearm(from);
@@ -697,6 +702,8 @@ export function createBowlScene(root, { reduce = false, follow = 0.08, smooth: s
     removeEventListener('touchmove', blockTouch);
     removeEventListener('wheel', onWheelMark);
     removeEventListener('touchstart', onTouchMark);
+    removeEventListener('ricocat:jump', onJumpFree);
+    removeEventListener('ricocat:jump-start', onJumpFree);
     removeEventListener('touchmove', onTouchMark);
     if (window.__ricocatScrollGate === gate) window.__ricocatScrollGate = null;
     removeEventListener('resize', onScroll);
