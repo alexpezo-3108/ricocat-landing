@@ -477,7 +477,7 @@ export function createBowlScene(root, { reduce = false, follow = 0.08, smooth: s
         // celular: el plato ocupa el espacio libre entre el navbar y el texto de la escena (nunca lo toca).
         // Seco/Húmedo comparten posición; al pasar a Mix (ya cambiado el texto) crece y se centra en su hueco.
         const mz = smooth(clamp((A.scroll - (STEPS[1] + 0.01)) / 0.05));
-        const fit = t => { const top0 = 76, a = Math.max(120, t - 32 - top0); const sz = Math.min((W - 40) / 0.47, a / 0.47); return [sz, top0 + a / 2 + 0.06 * sz]; }; // +6%: el cuadro tiene más aire arriba que abajo
+        const fit = t => { const top0 = 76, a = Math.max(120, t - 32 - top0); const sz = Math.min((W - 110) / 0.47, a / 0.47); return [sz, top0 + a / 2 + 0.06 * sz]; }; // +6%: el cuadro tiene más aire arriba que abajo
         const [s0, y0] = fit(mTops[0] || H * 0.5), [s1, y1] = fit(mTops[1] || H * 0.7);
         size = s0 + (s1 - s0) * mz; py = y0 + (y1 - y0) * mz;
       }

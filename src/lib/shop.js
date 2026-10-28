@@ -143,21 +143,25 @@ export function createShop(root, { reduce = false, smooth = null } = {}) {
       const g = { opacity: on ? 1 : 0, transform: `scale(${on ? 1 : 0.4})` }; // crece desde el centro
       const halo = on ? 'drop-shadow(0 6px 6px rgba(0,30,70,0.14)) drop-shadow(0 0 16px rgba(255,255,255,0.4))' : 'drop-shadow(0 6px 6px rgba(0,30,70,0.14)) drop-shadow(0 0 0px rgba(255,255,255,0))';
       if (M?.animate) {
-        M.animate(glow, g, on ? { type: 'spring', stiffness: 160, damping: 20, mass: 0.9 } : { duration: 0.35, ease: [0.4, 0, 0.2, 1] });
-        if (img) M.animate(img, { filter: halo }, { duration: on ? 0.5 : 0.35, ease: [0.22, 1, 0.36, 1] });
+        M.animate(glow, g, on ? { type: 'spring', stiffness: 160, damping: 20, mass: 0.9 } : { duration: 0.5, ease: [0.4, 0, 0.2, 1] });
+        if (img) M.animate(img, { filter: halo }, { duration: 0.5, ease: [0.22, 1, 0.36, 1] });
       } else {
         Object.assign(glow.style, g, { transition: 'opacity .4s, transform .5s cubic-bezier(.22,1,.36,1)' });
         if (img) Object.assign(img.style, { filter: halo, transition: 'filter .45s' });
       }
     };
-    on(card, 'pointerenter', () => {
+    // la opacidad actual se lee ANTES de cancelar la animación previa (si no, salta al valor base y se apaga de golpe)
+    const fadeTo = (to, ms) => {
+      const from = getComputedStyle(fill).opacity;
       fill.getAnimations().forEach(x => x.cancel());
-      fill.animate([{ opacity: getComputedStyle(fill).opacity }, { opacity: 1 }], { duration: reduce ? 0 : 450, easing: 'ease-out', fill: 'forwards' });
+      fill.animate([{ opacity: from }, { opacity: to }], { duration: reduce ? 0 : ms, easing: 'cubic-bezier(.4,0,.2,1)', fill: 'forwards' });
+    };
+    on(card, 'pointerenter', () => {
+      fadeTo(1, 450);
       glowTo(true);
     });
     on(card, 'pointerleave', () => {
-      fill.getAnimations().forEach(x => x.cancel());
-      fill.animate([{ opacity: getComputedStyle(fill).opacity }, { opacity: 0 }], { duration: reduce ? 0 : 380, easing: 'ease-in-out', fill: 'forwards' });
+      fadeTo(0, 520);
       glowTo(false);
     });
   });
