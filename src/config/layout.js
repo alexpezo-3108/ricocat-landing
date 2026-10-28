@@ -19,7 +19,8 @@ export const BLOCKS = {
   clusterTop: 375,     // borde superior visual de los productos ([data-products]: +40u y escala 1.03)
   clusterBottom: 1107, // base de los empaques (queda bajo el arco)
   clusterCenterX: 615,
-  clusterCenterY: 640
+  clusterCenterY: 640,
+  bagCenterX: 642     // centro visual de la bolsa central (mobile la centra en pantalla)
 };
 
 export const STAGE = {
@@ -97,7 +98,7 @@ function mobileLayout(vw, vh) {
     u, top: 0, width: m.width,
     logo: { x: cx, y: logoY, s: m.logoScale },
     copy: { x: cx, y: logoY + logoH + m.gapLogoCopy, s: m.copyScale },
-    cluster: { x: cx - BLOCKS.clusterCenterX * c, y: clY, s: c },
+    cluster: { x: cx - BLOCKS.bagCenterX * c, y: clY, s: c },
     highlightGap: ((BLOCKS.clusterBottom - FOLD) * c + ARC_GAP) * u
   };
 }

@@ -29,7 +29,8 @@ const SHADOW = 0.7;
 // escala 1 → 1.3 y queda apenas recortado abajo. Empieza un poco después del umbral para que
 // primero salga el texto de Húmedo; el texto de Mix entra al final del viaje.
 const MIX = [0.7, 0.84];
-const MIX_ZOOM = 0.1, MIX_X = 0, MIX_Y = 627 / 995 - 0.5;
+// desktop: crece menos y baja un poco para no apretar el texto de arriba
+const MIX_ZOOM = 0.03, MIX_X = 0, MIX_Y = 655 / 995 - 0.5;
 const MIX_TEXT_AT = 0.94;
 // al salir de la sección el plato vuelve a su pose inicial (diagonal, centrado, logo visible)
 const EXIT = 0.97;
@@ -319,7 +320,7 @@ export function createBowlScene(root, { reduce = false, follow = 0.08, smooth: s
   // tope por escena: antes de pasar de Seco→Húmedo, Húmedo→Mix y Mix→salida el scroll se detiene un instante
   // en la escena completa (aunque se scrollee rápido). Rueda: vía smooth-scroll; táctil: corta la inercia.
   const STOPS = [STEPS[0] - 0.035, STEPS[1] - 0.035, 0.905];
-  const HOLD = 420, REARM = 0.05;
+  const HOLD = 850, REARM = 0.05; // pausa marcada: se distinguen los 3 tipos aunque se scrollee rápido
   let holdUntil = 0, holdY = 0, used = -1;
   const stopY = i => scrollY + section.getBoundingClientRect().top + STOPS[i] * (section.offsetHeight - innerHeight);
   const crossed = (from, to) => {
@@ -373,12 +374,12 @@ export function createBowlScene(root, { reduce = false, follow = 0.08, smooth: s
     rearm(from);
     const i = crossed(from, y);
     if (i < 0) return;
-    used = i; touchLock = now + 320;
+    used = i; touchLock = now + 700;
     const root = document.documentElement, prev = root.style.overflow;
     root.style.overflow = 'hidden'; // corta la inercia
     scrollTo({ top: stopY(i), behavior: 'instant' });
     lastY = scrollY;
-    setTimeout(() => { root.style.overflow = prev; }, 320);
+    setTimeout(() => { root.style.overflow = prev; }, 700);
   };
   addEventListener('scroll', onNativeScroll, { passive: true });
 
@@ -590,7 +591,7 @@ export function createBowlScene(root, { reduce = false, follow = 0.08, smooth: s
         const fit = t => { const top0 = 76, a = Math.max(120, t - 32 - top0); const sz = Math.min((W - 110) / 0.47, a / 0.47); return [sz, top0 + a / 2 + 0.06 * sz]; }; // +6%: el cuadro tiene más aire arriba que abajo
         const [f0, g0] = fit(mTops[0] || H * 0.5), [s1, y1] = fit(mTops[1] || H * 0.7);
         // seco/húmedo: un poco más pequeño y más arriba
-        const s0 = f0 * 0.9, y0 = g0 - f0 * 0.06;
+        const s0 = f0 * 0.9, y0 = g0 - f0 * 0.09;
         size = s0 + (s1 - s0) * mz; py = y0 + (y1 - y0) * mz;
       }
       else {

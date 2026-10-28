@@ -38,6 +38,13 @@ export function createFlavors(root, opts = {}) {
       }
       top += h;
     }
+    // última etapa (Esterilizados): al salir hacia la tienda, si aún se ve más de la mitad, vuelve a quedar entera
+    const last = secs[secs.length - 1], h = last.offsetHeight, a = top + h - ih, y = scrollY;
+    if (y > a + 2 && y < a + ih * 0.5) {
+      snapping = true;
+      scrollToY(opts.smooth, a, 380);
+      setTimeout(() => { snapping = false; }, 440);
+    }
   };
   const snap = () => {
     if (touching) return;
@@ -299,7 +306,7 @@ function initFlavors(sec, { reduce = false, smooth = null } = {}, withEdge = tru
   dots.forEach((d, k) => on(d, 'click', framed(() => go(k))));
   on(sec, 'keydown', e => { if (e.key === 'ArrowRight') next(); if (e.key === 'ArrowLeft') prev(); });
   // autoplay cada 5 s (solo en la etapa con data-fl-autoplay): se pausa con hover, fuera de vista o tras interactuar
-  if (!reduce && n > 1 && sec.hasAttribute('data-fl-autoplay')) {
+  if (false && !reduce && n > 1 && sec.hasAttribute('data-fl-autoplay')) { // autoplay desactivado
     let inView = false, hover = false, last = performance.now();
     const io = new IntersectionObserver(([e]) => { inView = e.intersectionRatio > 0.6; last = performance.now(); }, { threshold: [0, 0.6, 1] });
     io.observe(sec);
