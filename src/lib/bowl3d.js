@@ -311,7 +311,7 @@ export function createBowlScene(root, { reduce = false, follow = 0.08, smooth: s
     paintEnter(); kick(); three?.place();
     if (v3Loading) pump();
     clearTimeout(idle);
-    if (!reduce) idle = setTimeout(snap, SNAP_IDLE);
+    // (el asentado por escena se reemplazó por los topes de STOPS: retrocedía cuadros y podía trabar)
   };
   addEventListener('scroll', onScroll, { passive: true });
   addEventListener('resize', onScroll);
@@ -351,25 +351,29 @@ export function createBowlScene(root, { reduce = false, follow = 0.08, smooth: s
   };
   window.__ricocatScrollGate = gate;
   // táctil / scroll nativo
-  let lastY = scrollY, touchLock = 0, lastWheel = 0;
+  let lastY = scrollY, touchLock = 0, lastWheel = 0, lastTouch = 0;
   const onWheelMark = () => { lastWheel = performance.now(); };
+  const onTouchMark = () => { lastTouch = performance.now(); };
   addEventListener('wheel', onWheelMark, { passive: true });
+  addEventListener('touchstart', onTouchMark, { passive: true });
+  addEventListener('touchmove', onTouchMark, { passive: true });
   const blockTouch = e => { if (performance.now() < touchLock) e.preventDefault(); };
   addEventListener('touchmove', blockTouch, { passive: false });
   const onNativeScroll = () => {
     const y = scrollY, from = lastY; lastY = y;
-    if (reduce || performance.now() - lastWheel < 250) return; // con rueda ya lo resuelve el gate
+    // solo scroll del dedo (o su inercia): saltos programados (volver arriba, anclas) no se frenan
+    if (reduce || performance.now() - lastWheel < 250 || performance.now() - lastTouch > 1500) return;
     const now = performance.now();
     if (now < touchLock) return;
     rearm(from);
     const i = crossed(from, y);
     if (i < 0) return;
-    used = i; touchLock = now + HOLD;
+    used = i; touchLock = now + 320;
     const root = document.documentElement, prev = root.style.overflow;
     root.style.overflow = 'hidden'; // corta la inercia
     scrollTo({ top: stopY(i), behavior: 'instant' });
     lastY = scrollY;
-    setTimeout(() => { root.style.overflow = prev; }, HOLD);
+    setTimeout(() => { root.style.overflow = prev; }, 320);
   };
   addEventListener('scroll', onNativeScroll, { passive: true });
 
@@ -410,7 +414,7 @@ export function createBowlScene(root, { reduce = false, follow = 0.08, smooth: s
   const trim = c => {
     if (!LOW_MEM) return;
     V3_ORDER.forEach((k, ci) => {
-      if (Math.abs(ci - c) <= 1) return;
+      if (ci >= c - 1 && ci <= c + 2) return;
       const a = v3[k], st = v3State[k];
       for (let i = 0; i < a.length; i++) if (a[i]) { a[i].src = ''; a[i] = null; st[i] = 0; } else if (st[i] === 1) st[i] = 0;
     });
@@ -418,7 +422,7 @@ export function createBowlScene(root, { reduce = false, follow = 0.08, smooth: s
   const nextJob = () => {
     const c = clipNow();
     trim(c);
-    const prio = (LOW_MEM ? [c, c + 1, c - 1] : [c, c + 1, c - 1, c + 2, c - 2, c + 3, c - 3, c + 4, c - 4]).filter(i => i >= 0 && i < V3_ORDER.length);
+    const prio = (LOW_MEM ? [c, c + 1, c + 2, c - 1] : [c, c + 1, c - 1, c + 2, c - 2, c + 3, c - 3, c + 4, c - 4]).filter(i => i >= 0 && i < V3_ORDER.length);
     // la entrada va primero (es lo que se ve apenas se llega a la sección)
     if (c <= 1) { const st = v3State.entrada; for (let i = 0; i < st.length; i += STRIDE) if (!st[i]) return ['entrada', i]; }
     for (const pass of LOW_MEM ? [6, 2] : [6, 3, 1]) for (const ci of prio) {
@@ -579,7 +583,9 @@ export function createBowlScene(root, { reduce = false, follow = 0.08, smooth: s
         // Seco/Húmedo comparten posición; al pasar a Mix (ya cambiado el texto) crece y se centra en su hueco.
         const mz = smooth(clamp((A.scroll - (STEPS[1] + 0.01)) / 0.05));
         const fit = t => { const top0 = 76, a = Math.max(120, t - 32 - top0); const sz = Math.min((W - 110) / 0.47, a / 0.47); return [sz, top0 + a / 2 + 0.06 * sz]; }; // +6%: el cuadro tiene más aire arriba que abajo
-        const [s0, y0] = fit(mTops[0] || H * 0.5), [s1, y1] = fit(mTops[1] || H * 0.7);
+        const [f0, g0] = fit(mTops[0] || H * 0.5), [s1, y1] = fit(mTops[1] || H * 0.7);
+        // seco/húmedo: un poco más pequeño y más arriba
+        const s0 = f0 * 0.9, y0 = g0 - f0 * 0.06;
         size = s0 + (s1 - s0) * mz; py = y0 + (y1 - y0) * mz;
       }
       else {
@@ -690,6 +696,8 @@ export function createBowlScene(root, { reduce = false, follow = 0.08, smooth: s
     removeEventListener('scroll', onNativeScroll);
     removeEventListener('touchmove', blockTouch);
     removeEventListener('wheel', onWheelMark);
+    removeEventListener('touchstart', onTouchMark);
+    removeEventListener('touchmove', onTouchMark);
     if (window.__ricocatScrollGate === gate) window.__ricocatScrollGate = null;
     removeEventListener('resize', onScroll);
     removeEventListener('ricocat:jump', onJump);

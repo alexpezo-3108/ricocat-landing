@@ -52,7 +52,7 @@ export function createDrawer(root, { reduce = false } = {}) {
         row.setAttribute('data-dw-store', '1');
         const txt = h('span', 'flex:1; min-width:0; display:flex; flex-direction:column; gap:2px;');
         txt.append(h('span', "font-family:'Barlow', sans-serif; font-weight:600; font-size:17px; color:#00326E;", d.tienda));
-        const a = h('a', "flex:none; display:inline-flex; align-items:center; justify-content:center; height:40px; padding:0 18px; border-radius:999px; background:#00326E; color:#fff; text-decoration:none; font-family:'Barlow', sans-serif; font-weight:600; font-size:14px; white-space:nowrap; transition:background .25s, transform .25s;", 'Ir a tienda');
+        const a = h('a', "flex:none; display:inline-flex; align-items:center; justify-content:center; height:40px; padding:0 18px; border-radius:999px; background:#00326E; color:#fff; text-decoration:none; font-family:'Barlow Condensed', sans-serif; font-weight:600; font-size:16px; letter-spacing:0.02em; text-transform:uppercase; white-space:nowrap; transition:background .25s, transform .25s;", 'Ir a tienda');
         a.href = d.url.trim(); a.target = '_blank'; a.rel = 'noopener';
         a.dataset.producto = prod.id; a.dataset.tienda = d.tienda;
         a.addEventListener('mouseenter', () => { a.style.background = '#1A4F8A'; a.animate([{ transform: 'scale(1)' }, { transform: 'scale(1.04)' }, { transform: 'scale(1)' }], { duration: 650, easing: 'cubic-bezier(.34,1.56,.64,1)' }); });

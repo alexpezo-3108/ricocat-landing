@@ -70,11 +70,9 @@ export function mountLanding(root, { reduce = false, options = {} } = {}) {
     upd();
   }
   // tope: si las imágenes tardan demasiado, el preloader no se queda pegado
-  // también espera lo esencial del plato (entrada + muestra de cada escena); tope de 8 s
-  const bowlReady = () => window.__ricocatBowlReady || Promise.resolve();
   const imagesOrTimeout = seen
     ? Promise.race([waitForImages(content), new Promise(r => setTimeout(r, 1200))]) // repetida: no espera el plato
-    : Promise.race([Promise.all([waitForImages(content), new Promise(r => setTimeout(r, 0)).then(bowlReady)]), new Promise(r => setTimeout(r, 8000))]);
+    : new Promise(r => setTimeout(r, 1600)); // duración fija: el plato y el resto siguen cargando de fondo
   // relevo: el logo del hero se oculta mientras el del preloader termina de llegar encima
   const handoff = p => {
     const lg = heroLogo(); if (lg) lg.style.opacity = '0';
