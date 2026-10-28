@@ -449,7 +449,8 @@ export function createBowlScene(root, { reduce = false, follow = 0.08, smooth: s
       const narrow = W < 900;
       // posición y escala del plato en pantalla (equivalente a setViewOffset + zoom de la cámara)
       let px = W / 2, py = H / 2, size = H, zoom = 1;
-      if (narrow) { size = H / 1.55; py = H / 2 - H * 0.17; }
+      // celular: en Mix (y la salida) el plato crece un poco y baja al centro, entre texto y borde superior
+      if (narrow) { const mz = smooth(clamp(zm)); size = H / (1.55 - 0.25 * mz); py = H / 2 - H * (0.17 - 0.1 * mz); }
       else {
         const s = smooth(A.sit);
         const cx = REST_X * s + (MIX_X - REST_X) * zm, cy = MIX_Y * zm;
