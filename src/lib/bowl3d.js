@@ -316,6 +316,63 @@ export function createBowlScene(root, { reduce = false, follow = 0.08, smooth: s
   addEventListener('scroll', onScroll, { passive: true });
   addEventListener('resize', onScroll);
 
+  // tope por escena: antes de pasar de Seco→Húmedo, Húmedo→Mix y Mix→salida el scroll se detiene un instante
+  // en la escena completa (aunque se scrollee rápido). Rueda: vía smooth-scroll; táctil: corta la inercia.
+  const STOPS = [STEPS[0] - 0.035, STEPS[1] - 0.035, 0.905];
+  const HOLD = 420, REARM = 0.05;
+  let holdUntil = 0, holdY = 0, used = -1;
+  const stopY = i => scrollY + section.getBoundingClientRect().top + STOPS[i] * (section.offsetHeight - innerHeight);
+  const crossed = (from, to) => {
+    const travel = section.offsetHeight - innerHeight; if (travel <= 0) return -1;
+    const base = scrollY + section.getBoundingClientRect().top;
+    const pf = (from - base) / travel, pt = (to - base) / travel;
+    for (let i = 0; i < STOPS.length; i++) {
+      const x = STOPS[i];
+      if (i !== used && ((pf < x - 0.002 && pt >= x) || (pf > x + 0.002 && pt <= x))) return i;
+    }
+    return -1;
+  };
+  const rearm = y => {
+    if (used < 0) return;
+    const travel = section.offsetHeight - innerHeight;
+    const p = (y - scrollY - section.getBoundingClientRect().top) / travel;
+    if (Math.abs(p - STOPS[used]) > REARM) used = -1;
+  };
+  // smooth-scroll consulta este gate en cada evento de rueda
+  const gate = (from, to) => {
+    if (reduce || destroyed) return to;
+    const now = performance.now();
+    if (now < holdUntil) return holdY;
+    rearm(from);
+    const i = crossed(from, to);
+    if (i < 0) return to;
+    used = i; holdY = stopY(i); holdUntil = now + HOLD;
+    return holdY;
+  };
+  window.__ricocatScrollGate = gate;
+  // táctil / scroll nativo
+  let lastY = scrollY, touchLock = 0, lastWheel = 0;
+  const onWheelMark = () => { lastWheel = performance.now(); };
+  addEventListener('wheel', onWheelMark, { passive: true });
+  const blockTouch = e => { if (performance.now() < touchLock) e.preventDefault(); };
+  addEventListener('touchmove', blockTouch, { passive: false });
+  const onNativeScroll = () => {
+    const y = scrollY, from = lastY; lastY = y;
+    if (reduce || performance.now() - lastWheel < 250) return; // con rueda ya lo resuelve el gate
+    const now = performance.now();
+    if (now < touchLock) return;
+    rearm(from);
+    const i = crossed(from, y);
+    if (i < 0) return;
+    used = i; touchLock = now + HOLD;
+    const root = document.documentElement, prev = root.style.overflow;
+    root.style.overflow = 'hidden'; // corta la inercia
+    scrollTo({ top: stopY(i), behavior: 'instant' });
+    lastY = scrollY;
+    setTimeout(() => { root.style.overflow = prev; }, HOLD);
+  };
+  addEventListener('scroll', onNativeScroll, { passive: true });
+
   const io = new IntersectionObserver(([e]) => { onScreen = e.isIntersecting; if (onScreen) kick(); }, { rootMargin: '200px 0px' });
   io.observe(section);
 
@@ -429,6 +486,50 @@ export function createBowlScene(root, { reduce = false, follow = 0.08, smooth: s
   const cv = document.createElement('canvas');
   Object.assign(cv.style, { position: 'absolute', inset: '0', width: '100%', height: '100%', display: 'block' });
   stage.appendChild(cv);
+  // etiquetas del húmedo: marcan paté, trocitos y pouch sobre el último cuadro (plato quieto).
+  // Coordenadas en el espacio de 1200 px del cuadro original.
+  const TAGS = [
+    { t: 'Paté', x: 600, y: 690 },
+    { t: 'Pouch', x: 735, y: 870 },
+    { t: 'Trocitos', x: 905, y: 700 }
+  ];
+  const tagLayer = document.createElement('div');
+  tagLayer.setAttribute('aria-hidden', 'true');
+  Object.assign(tagLayer.style, { position: 'absolute', inset: '0', pointerEvents: 'none', zIndex: '1' });
+  const tagEls = TAGS.map(tg => {
+    const el = document.createElement('div');
+    Object.assign(el.style, { position: 'absolute', left: '0', top: '0', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '6px', opacity: '0', willChange: 'transform, opacity' });
+    const pill = document.createElement('span');
+    pill.textContent = tg.t;
+    Object.assign(pill.style, { display: 'flex', alignItems: 'center', height: '30px', padding: '0 14px', borderRadius: '999px', background: '#fff', color: '#00326E', fontFamily: "'Barlow', sans-serif", fontWeight: '600', fontSize: '13px', letterSpacing: '0.04em', textTransform: 'uppercase', whiteSpace: 'nowrap', boxShadow: '0 6px 16px rgba(0,20,50,0.18)' });
+    const dot = document.createElement('span');
+    Object.assign(dot.style, { width: '10px', height: '10px', borderRadius: '50%', background: '#fff', boxShadow: '0 0 0 4px rgba(255,255,255,0.35)' });
+    el.append(pill, dot); tagLayer.appendChild(el);
+    return el;
+  });
+  stage.appendChild(tagLayer);
+  // entran y salen una por una (transición con retraso escalonado), sin depender de la velocidad del scroll
+  tagEls.forEach(el => { el.style.transition = 'opacity .5s cubic-bezier(.22,1,.36,1), translate .5s cubic-bezier(.22,1,.36,1)'; el.style.translate = '0 10px'; });
+  let tagsOn = 0, tagsKey = '', tagsShown = false;
+  const placeTags = (px, py, k) => {
+    const want = tagsOn > 0.5;
+    if (want !== tagsShown) {
+      tagsShown = want;
+      tagEls.forEach((el, i) => {
+        // al salir, en orden inverso
+        el.style.transitionDelay = `${(want ? i : tagEls.length - 1 - i) * 140}ms`;
+        el.style.opacity = want ? '1' : '0';
+        el.style.translate = want ? '0 0' : '0 10px';
+      });
+    }
+    const key = `${px.toFixed(1)}|${py.toFixed(1)}|${k.toFixed(4)}`;
+    if (key === tagsKey) return; tagsKey = key;
+    tagEls.forEach((el, i) => {
+      const tg = TAGS[i];
+      const x = px + (tg.x - V3.cx) * k, y = py + (tg.y - V3.cy) * k;
+      el.style.transform = `translate(-50%, -100%) translate(${x.toFixed(1)}px, ${(y + 5).toFixed(1)}px)`;
+    });
+  };
   const ctx = cv.getContext('2d');
   // si el navegador vacía el canvas por falta de memoria, se redibuja al recuperarlo
   cv.addEventListener('contextrestored', () => { lastKey = ''; three?.place(); });
@@ -494,6 +595,7 @@ export function createBowlScene(root, { reduce = false, follow = 0.08, smooth: s
         // entrada ligada a m; luego Seco avanza cuadro a cuadro con el scroll hasta pasar a Húmedo
         let im;
         // al salir (tras la Combinación completa) se usa el clip de salida con comida, nunca la entrada vacía
+        tagsOn = 0;
         if (m < SWITCH && A.scroll < 0.9) im = nearV3('entrada', Math.round(clamp(m / SWITCH) * 89));
         else {
           const sp = clamp((A.scroll - ENTRY_END) / (STEPS[0] - 0.04 - ENTRY_END));
@@ -501,6 +603,8 @@ export function createBowlScene(root, { reduce = false, follow = 0.08, smooth: s
           const hp = clamp((A.scroll - (STEPS[0] - 0.02)) / (STEPS[1] - 0.04 - (STEPS[0] - 0.02)));
           // mix: desde el paso a Mix hasta casi el final de la sección; luego queda el plato mix fijo
           const mp = clamp((A.scroll - (STEPS[1] - 0.02)) / (0.91 - (STEPS[1] - 0.02)));
+          // etiquetas: solo con el húmedo ya completo y antes de pasar a Mix
+          if (A.scroll >= STEPS[0] - 0.02 && A.scroll < STEPS[1] - 0.03) tagsOn = clamp((hp - 0.84) / 0.12);
           // salida: al irse de la sección el plato vuelve a su pose inicial (cuadros a 660 px, mismo encuadre)
           const xp = clamp((A.scroll - 0.92) / (1 - 0.92));
           im = (A.scroll >= 0.92 ? nearV3('salida', Math.round(xp * (V3.clips.salida - 1))) : null)
@@ -512,6 +616,7 @@ export function createBowlScene(root, { reduce = false, follow = 0.08, smooth: s
         // ancho del plato ≈ 47% del tamaño de escena; el centro del plato final cae en (px, py)
         const k = size * 0.47 / V3.bowlW;
         // solo se redibuja si cambia el cuadro o la posición
+        placeTags(px, py, k);
         const cr = crops?.[im._clip]?.[im._i] || [0, 0, V3.w, V3.h];
         const key = `${im.src}|${px.toFixed(1)}|${py.toFixed(1)}|${k.toFixed(4)}`;
         if (key === lastKey) return;
@@ -582,6 +687,10 @@ export function createBowlScene(root, { reduce = false, follow = 0.08, smooth: s
     destroyed = true;
     clearTimeout(idle);
     removeEventListener('scroll', onScroll);
+    removeEventListener('scroll', onNativeScroll);
+    removeEventListener('touchmove', blockTouch);
+    removeEventListener('wheel', onWheelMark);
+    if (window.__ricocatScrollGate === gate) window.__ricocatScrollGate = null;
     removeEventListener('resize', onScroll);
     removeEventListener('ricocat:jump', onJump);
     floats.forEach(a => a.cancel());

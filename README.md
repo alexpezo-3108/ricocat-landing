@@ -10,7 +10,7 @@ Sitio estático, sin build. Listo para Vercel.
 - `index.html` — la landing.
 - `support.js`, `image-slot.js` — runtime de la página.
 - `src/` — lógica (animaciones, tienda, panel "Dónde comprar", plato).
-- `data/ricocat-links-v2.json` — **único lugar con los links de compra**. Editar solo este archivo para actualizarlos.
+- `data/ricocat-links-v3.json` — **único lugar con los links de compra**. Editar solo este archivo para actualizarlos.
 - `assets/` — imágenes. `assets/bowl-v6/` es la secuencia del plato (860 px escritorio, `m/` 560 px celular, `crops.json` con el recorte de cada cuadro).
 
 ## Caché

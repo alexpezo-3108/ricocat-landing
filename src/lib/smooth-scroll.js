@@ -48,7 +48,9 @@ export function createSmoothScroll({ lerp = 0.055, wheelMultiplier = 0.85, ancho
     e.preventDefault();
     tween = null;
     const unit = e.deltaMode === 1 ? 40 : e.deltaMode === 2 ? innerHeight : 1;
-    target = clamp(target + e.deltaY * unit * wheelMultiplier, 0, max());
+    const next = clamp(target + e.deltaY * unit * wheelMultiplier, 0, max());
+    // tope de escenas (plato): puede retener el destino un instante
+    target = window.__ricocatScrollGate ? clamp(window.__ricocatScrollGate(target, next), 0, max()) : next;
     run();
   };
 
@@ -71,7 +73,7 @@ export function createSmoothScroll({ lerp = 0.055, wheelMultiplier = 0.85, ancho
     if (!a || e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey) return;
     const id = decodeURIComponent(a.getAttribute('href').slice(1));
     const dest = id ? document.getElementById(id) : null;
-    if (!id) { e.preventDefault(); scrollTo(0); return; }
+    if (!id) { e.preventDefault(); if (a.hasAttribute('data-backtop')) scrollTo(0); return; }
     if (!dest) return;
     e.preventDefault();
     scrollTo(dest.getBoundingClientRect().top + el.scrollTop);

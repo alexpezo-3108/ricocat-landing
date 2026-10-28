@@ -188,6 +188,8 @@ function initFlavors(sec, { reduce = false, smooth = null } = {}, withEdge = tru
     // de apilamiento y las latas quedarían detrás de la bolsa durante la transición
     const ex = list => list.filter(Boolean).flatMap(el => el.hasAttribute('data-fl-still') ? [...el.children] : [el]);
     bags.forEach((_, i) => { if (i !== from && i !== to) setBag(i, 'hidden', 1); });
+    // cualquier resto de otro sabor (transición previa interrumpida) queda oculto
+    for (let i = 0; i < n; i++) if (i !== from && i !== to) ['word', 'cat', 'kib', 'still', 'copy', 'bens'].forEach(k => { const el = q(k, i); if (el) { el.getAnimations().forEach(a => a.cancel()); el.style.clipPath = ''; show(el, false); } });
 
     // 1) al hacer clic, los textos de los lados se van de inmediato
     [P.copy, P.bens].forEach(el => {
@@ -213,15 +215,18 @@ function initFlavors(sec, { reduce = false, smooth = null } = {}, withEdge = tru
     const sweeps = [L1, L2].map(c => c.animate(sweepKF, { duration: D(SLIDE_MS), delay: D(LEAD), easing: E_IO, fill: 'both' }));
     Promise.all(sweeps.map(s => s.finished.catch(() => {}))).then(() => {
       if (cur === to) { sec.style.background = bgs[to]; edge.style.background = bgs[to]; }
+      // al volver, la escena saliente se oculta ANTES de quitar el barrido (si no, asoma un instante)
+      if (dir < 0 && cur === to) { setBag(from, 'hidden', 1); setBag(to, 'front', 3); [P.word, P.cat, P.kib, P.still].forEach(el => show(el, false)); }
       L1.remove(); L2.remove();
     });
 
     if (dir > 0) {
       // la nueva escena ya está en su sitio, recortada por el barrido
-      setBag(to, 'front', 3);
-      [N2.word, N2.cat, N2.kib, N2.still].forEach(el => show(el, true));
-      ex([N2.still]).forEach(el => show(el, true));
+      // primero se recorta (todo tapado) y recién después se muestra: así no asoma ni un cuadro
+      setBag(to, 'front', 3); show(N2.bag, false);
       clipUnder(ex([N2.word, N2.cat, N2.bag, N2.kib, N2.still]), L1);
+      [N2.word, N2.cat, N2.kib, N2.still, N2.bag].forEach(el => show(el, true));
+      ex([N2.still]).forEach(el => show(el, true));
       // la palabra grande nueva entra desde la izquierda, detrás de la que sale
       if (N2.word) {
         N2.word.getAnimations().forEach(x => x.cancel());
@@ -301,6 +306,9 @@ function initFlavors(sec, { reduce = false, smooth = null } = {}, withEdge = tru
     const bump = () => { last = performance.now(); };
     on(sec, 'pointerenter', () => { hover = true; });
     on(sec, 'pointerleave', () => { hover = false; bump(); });
+    // foco en "Ver productos" también pausa el autoplay
+    on(sec, 'focusin', e => { if (e.target.closest('[data-fl-go]')) hover = true; });
+    on(sec, 'focusout', e => { if (e.target.closest('[data-fl-go]')) { hover = false; bump(); } });
     on(sec, 'click', bump); on(sec, 'keydown', bump);
     const t = setInterval(() => {
       if (!inView || hover || document.hidden || busy) return;

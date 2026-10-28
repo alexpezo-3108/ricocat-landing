@@ -1,6 +1,6 @@
-// Links de compra: se leen SOLO de data/ricocat-links-v2.json (actualizar ese archivo, no el código).
+// Links de compra: se leen SOLO de data/ricocat-links-v3.json (actualizar ese archivo, no el código).
 // Relaciona productos por id o por nombre exacto (sin distinguir mayúsculas/tildes/guiones).
-const URL_DATA = new URL('../../data/ricocat-links-v2.json', import.meta.url).href;
+const URL_DATA = new URL('../../data/ricocat-links-v3.json', import.meta.url).href;
 let cache = null;
 
 export const norm = s => String(s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '')
@@ -12,7 +12,7 @@ export function loadLinks() {
     const byId = new Map(), byName = new Map();
     (d.productos || []).forEach(p => { byId.set(p.id, p); byName.set(norm(p.nombre), p); });
     return { tiendas, find: (id, nombre) => (id && byId.get(id)) || byName.get(norm(nombre)) || null };
-  }).catch(e => { console.warn('ricocat-links-v2.json no disponible', e); cache = null; return null; });
+  }).catch(e => { console.warn('ricocat-links-v3.json no disponible', e); cache = null; return null; });
   return cache;
 }
 
