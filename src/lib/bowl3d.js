@@ -280,6 +280,17 @@ export function createBowlScene(root, { reduce = false, follow = 0.08, smooth: s
     } catch (err) { console.warn('[Ricocat] bowl tick', err); raf = 0; last = 0; }
   };
   const kick = () => { if (!raf && !destroyed) raf = requestAnimationFrame(tick); };
+  // salto desde el menú (cortina): sin animar la entrada, el estado queda al instante en el punto destino
+  const onJump = e => {
+    if (e.detail?.id !== section.id) return;
+    const p = target();
+    A.scroll = p;
+    A.sit = section.getBoundingClientRect().top > 0 ? 0 : clamp((p - START) / (ENTRY_END - START));
+    A.spin = Math.max(0, stepFor(section.getBoundingClientRect().top, p) - 1);
+    A.exit = 0; lastKey = '';
+    paintEnter(); kick(); three?.place();
+  };
+  addEventListener('ricocat:jump', onJump);
 
   paintEnter();
   let idle = 0;
@@ -422,9 +433,21 @@ export function createBowlScene(root, { reduce = false, follow = 0.08, smooth: s
   // si el navegador vacía el canvas por falta de memoria, se redibuja al recuperarlo
   cv.addEventListener('contextrestored', () => { lastKey = ''; three?.place(); });
   let W = 0, H = 0, DPR = 1;
+  // celular: tope superior del texto de cada escena (Seco/Húmedo → el más alto; Mix aparte), medido sin transformaciones
+  let mTops = [0, 0];
+  const measureTops = () => {
+    const st = stage.getBoundingClientRect().top;
+    const tops = scenes.map(el => el.getBoundingClientRect().top - st).filter(v => v > 0 && v < H);
+    const mixEl = section.querySelector('[data-bowl-copy-mix]');
+    const mixScene = mixEl ? scenes.findIndex(el => mixEl.contains(el) || el === mixEl) : -1;
+    const nonMix = scenes.filter((el, i) => i !== mixScene).map(el => el.getBoundingClientRect().top - st).filter(v => v > 0 && v < H);
+    mTops = [nonMix.length ? Math.min(...nonMix) : 0, mixEl ? mixEl.getBoundingClientRect().top - st : 0];
+    if (!tops.length) mTops = [0, 0];
+  };
   const resize = () => {
     W = stage.clientWidth; H = stage.clientHeight;
     if (!W || !H) return;
+    if (W < 900) measureTops();
     DPR = Math.min(1.5, devicePixelRatio || 1); // 1.5 basta para los cuadros de 860 px y aligera el dibujo
     lastKey = '';
     cv.width = Math.round(W * DPR); cv.height = Math.round(H * DPR);
@@ -450,7 +473,14 @@ export function createBowlScene(root, { reduce = false, follow = 0.08, smooth: s
       // posición y escala del plato en pantalla (equivalente a setViewOffset + zoom de la cámara)
       let px = W / 2, py = H / 2, size = H, zoom = 1;
       // celular: en Mix (y la salida) el plato crece un poco y baja al centro, entre texto y borde superior
-      if (narrow) { const mz = smooth(clamp((A.scroll - (STEPS[1] - 0.04)) / 0.05)); size = H / (1.55 - 0.25 * mz); py = H / 2 - H * (0.17 - 0.1 * mz); }
+      if (narrow) {
+        // celular: el plato ocupa el espacio libre entre el navbar y el texto de la escena (nunca lo toca).
+        // Seco/Húmedo comparten posición; al pasar a Mix (ya cambiado el texto) crece y se centra en su hueco.
+        const mz = smooth(clamp((A.scroll - (STEPS[1] + 0.01)) / 0.05));
+        const fit = t => { const top0 = 76, a = Math.max(120, t - 32 - top0); const sz = Math.min((W - 40) / 0.47, a / 0.47); return [sz, top0 + a / 2 + 0.06 * sz]; }; // +6%: el cuadro tiene más aire arriba que abajo
+        const [s0, y0] = fit(mTops[0] || H * 0.5), [s1, y1] = fit(mTops[1] || H * 0.7);
+        size = s0 + (s1 - s0) * mz; py = y0 + (y1 - y0) * mz;
+      }
       else {
         const s = smooth(A.sit);
         const cx = REST_X * s + (MIX_X - REST_X) * zm, cy = MIX_Y * zm;
@@ -553,6 +583,7 @@ export function createBowlScene(root, { reduce = false, follow = 0.08, smooth: s
     clearTimeout(idle);
     removeEventListener('scroll', onScroll);
     removeEventListener('resize', onScroll);
+    removeEventListener('ricocat:jump', onJump);
     floats.forEach(a => a.cancel());
     io.disconnect();
     cancelAnimationFrame(raf);
