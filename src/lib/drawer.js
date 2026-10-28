@@ -2,12 +2,23 @@
 // abre desde la derecha con la imagen, etiquetas, nombre, presentaciones y tiendas.
 import { loadLinks, groupStores } from './store-links.js';
 const E_OUT = 'cubic-bezier(.22,1,.36,1)', E_IN = 'cubic-bezier(.5,0,.75,0)';
-// tiendas con logo de texto (el estilo que ya tenía el panel); el resto, círculo con inicial
-const TEXT_LOGOS = new Set(['Metro', 'Tottus', 'Plaza Vea', 'Wong', 'Vivanda']);
+// logos de tienda: assets/stores/{slug}.webp (ícono oficial del sitio). Sin archivo → círculo con inicial.
+const LOGOS = new Set(['tottus', 'mascota-veloz', 'superpet', 'plaza-vea', 'pikotin', 'mascotify', 'naricitas', 'falabella', 'oechsle', 'garuka',
+  'makro', 'rappi', 'gopet', 'metro', 'vivanda', 'promart', 'choco-pet', 'real-plaza', 'vega']);
+const LOGO_DIR = new URL('../../assets/stores/', import.meta.url).href;
+const slug = n => String(n).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 const h = (tag, style, text) => { const e = document.createElement(tag); if (style) e.style.cssText = style; if (text != null) e.textContent = text; return e; };
-const logoEl = name => TEXT_LOGOS.has(name)
-  ? h('span', "flex:none; display:flex; align-items:center; justify-content:center; width:48px; height:48px; border-radius:12px; background:#F2F6FA; font-family:'Barlow Condensed', sans-serif; font-weight:700; font-size:13px; line-height:1; text-align:center; text-transform:uppercase; letter-spacing:0.02em; color:#00326E;", name)
-  : h('span', "flex:none; display:flex; align-items:center; justify-content:center; width:48px; height:48px; border-radius:50%; background:#E5FBFD; font-family:'Barlow Condensed', sans-serif; font-weight:700; font-size:22px; line-height:1; color:#00326E;", name.charAt(0).toUpperCase());
+const initialEl = name => h('span', "flex:none; display:flex; align-items:center; justify-content:center; width:48px; height:48px; border-radius:12px; background:#E5FBFD; font-family:'Barlow Condensed', sans-serif; font-weight:700; font-size:22px; line-height:1; color:#00326E;", name.charAt(0).toUpperCase());
+const logoEl = name => {
+  const s = slug(name);
+  if (!LOGOS.has(s)) return initialEl(name);
+  const box = h('span', 'flex:none; display:block; width:48px; height:48px; border-radius:12px; overflow:hidden; background:#fff; box-shadow:inset 0 0 0 1px rgba(0,50,110,0.10);');
+  const im = h('img', 'display:block; width:100%; height:100%; object-fit:contain;');
+  im.src = LOGO_DIR + s + '.webp'; im.alt = ''; im.width = 48; im.height = 48; im.decoding = 'async'; im.loading = 'lazy';
+  im.onerror = () => box.replaceWith(initialEl(name));
+  box.append(im);
+  return box;
+};
 
 export function createDrawer(root, { reduce = false } = {}) {
   const dw = root.querySelector('[data-drawer]');
