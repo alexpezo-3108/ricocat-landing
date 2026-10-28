@@ -335,12 +335,25 @@ export function createBowlScene(root, { reduce = false, follow = 0.08, smooth: s
     const p = A.scroll;
     return p >= 0.9 ? 4 : p >= STEPS[1] - 0.04 ? 3 : p >= STEPS[0] - 0.04 ? 2 : p >= ENTRY_END - 0.03 ? 1 : 0;
   };
+  // celular: la memoria es el límite (cada cuadro decodificado ocupa ~1 MB y Android puede vaciar el canvas).
+  // Se carga 1 de cada 2 cuadros y solo la escena actual y sus vecinas; las lejanas se liberan.
+  const LOW_MEM = innerWidth < 900;
+  const STRIDE = LOW_MEM ? 2 : 1;
+  const trim = c => {
+    if (!LOW_MEM) return;
+    V3_ORDER.forEach((k, ci) => {
+      if (Math.abs(ci - c) <= 1) return;
+      const a = v3[k], st = v3State[k];
+      for (let i = 0; i < a.length; i++) if (a[i]) { a[i].src = ''; a[i] = null; st[i] = 0; } else if (st[i] === 1) st[i] = 0;
+    });
+  };
   const nextJob = () => {
     const c = clipNow();
-    const prio = [c, c + 1, c - 1, c + 2, c - 2, c + 3, c - 3, c + 4, c - 4].filter(i => i >= 0 && i < V3_ORDER.length);
-    // la entrada completa va primero (es lo que se ve apenas se llega a la sección)
-    { const st = v3State.entrada; for (let i = 0; i < st.length; i++) if (!st[i]) return ['entrada', i]; }
-    for (const pass of [6, 3, 1]) for (const ci of prio) {
+    trim(c);
+    const prio = (LOW_MEM ? [c, c + 1, c - 1] : [c, c + 1, c - 1, c + 2, c - 2, c + 3, c - 3, c + 4, c - 4]).filter(i => i >= 0 && i < V3_ORDER.length);
+    // la entrada va primero (es lo que se ve apenas se llega a la sección)
+    if (c <= 1) { const st = v3State.entrada; for (let i = 0; i < st.length; i += STRIDE) if (!st[i]) return ['entrada', i]; }
+    for (const pass of LOW_MEM ? [6, 2] : [6, 3, 1]) for (const ci of prio) {
       const k = V3_ORDER[ci], st = v3State[k];
       for (let i = 0; i < st.length; i += pass) if (!st[i]) return [k, i];
     }
@@ -351,7 +364,7 @@ export function createBowlScene(root, { reduce = false, follow = 0.08, smooth: s
       const job = nextJob(); if (!job) return;
       const [k, i] = job; v3State[k][i] = 1; inflight++;
       const im = new Image(); im.decoding = 'async';
-      const done = ok => { inflight--; if (ok) { v3[k][i] = im; lastKey = ''; three?.place(); } pump(); };
+      const done = ok => { inflight--; if (ok && v3State[k][i] === 1) { v3[k][i] = im; lastKey = ''; three?.place(); } pump(); };
       im.onload = () => (im.decode ? im.decode() : Promise.resolve()).catch(() => {}).then(() => done(true));
       im.onerror = () => { v3State[k][i] = 2; done(false); };
       im.src = `${V3.base}${k}/${pad(i)}.webp?v=${k === 'salida' ? 6 : 5}`; im._clip = k; im._i = i;
@@ -406,6 +419,8 @@ export function createBowlScene(root, { reduce = false, follow = 0.08, smooth: s
   Object.assign(cv.style, { position: 'absolute', inset: '0', width: '100%', height: '100%', display: 'block' });
   stage.appendChild(cv);
   const ctx = cv.getContext('2d');
+  // si el navegador vacía el canvas por falta de memoria, se redibuja al recuperarlo
+  cv.addEventListener('contextrestored', () => { lastKey = ''; three?.place(); });
   let W = 0, H = 0, DPR = 1;
   const resize = () => {
     W = stage.clientWidth; H = stage.clientHeight;
@@ -522,8 +537,8 @@ export function createBowlScene(root, { reduce = false, follow = 0.08, smooth: s
   resize();
   // carga desde el arranque: lo esencial (entrada completa + 1 de cada 6 del resto) se espera en el preloader
   preload();
-  const essentials = [...Array(V3.clips.entrada).keys()].map(i => ['entrada', i]);
-  ['seco', 'humedo', 'mix', 'salida'].forEach(k => { for (let i = 0; i < V3.clips[k]; i += (V3.clips[k] > 60 ? 6 : 3)) essentials.push([k, i]); });
+  const essentials = [...Array(V3.clips.entrada).keys()].filter(i => i % STRIDE === 0).map(i => ['entrada', i]);
+  (LOW_MEM ? ['seco'] : ['seco', 'humedo', 'mix', 'salida']).forEach(k => { for (let i = 0; i < V3.clips[k]; i += (V3.clips[k] > 60 ? 6 : 3)) essentials.push([k, i]); });
   window.__ricocatBowlReady = new Promise(res => {
     const chk = () => (destroyed || essentials.every(([k, i]) => v3State[k][i] && (v3[k][i] || v3State[k][i] === 2)) ? res() : setTimeout(chk, 120));
     chk();
