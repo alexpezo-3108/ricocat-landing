@@ -15,6 +15,7 @@ import { loadLinks } from './lib/store-links.js';
 import { createReveal } from './lib/reveal.js';
 import { createScrollParallax } from './lib/scroll-parallax.js';
 import { createBowlScene } from './lib/bowl3d.js';
+import { createCurtain } from './lib/curtain.js';
 import { createFlavors } from './lib/flavors.js';
 import { createShop } from './lib/shop.js';
 import { createDrawer } from './lib/drawer.js';
@@ -101,6 +102,7 @@ export function mountLanding(root, { reduce = false, options = {} } = {}) {
   ];
   const smooth = reduce ? null : createSmoothScroll();
   loadLinks(); // precarga los links de compra
+  const stopCurtain = createCurtain({ smooth, reduce });
   const stopReveal = createReveal(root, { reduce });
   const stopScrollParallax = createScrollParallax(root, { reduce });
   const stopBowl = createBowlScene(root, { reduce, smooth });
@@ -155,6 +157,7 @@ export function mountLanding(root, { reduce = false, options = {} } = {}) {
       stopFish.forEach(stop => stop());
       smooth?.destroy();
       stopReveal();
+      stopCurtain();
       stopScrollParallax();
       stopBowl();
       stopFlavors();
