@@ -1,0 +1,1002 @@
+{
+  "tiendas": [
+    {
+      "nombre": "Plaza Vea",
+      "tipo": "Supermercado",
+      "pagina_marca_ricocat": null
+    },
+    {
+      "nombre": "Tottus",
+      "tipo": "Supermercado",
+      "pagina_marca_ricocat": "https://www.tottus.com.pe/tottus-pe/marca/RICOCAT"
+    },
+    {
+      "nombre": "Metro",
+      "tipo": "Supermercado",
+      "pagina_marca_ricocat": null
+    },
+    {
+      "nombre": "Wong",
+      "tipo": "Supermercado",
+      "pagina_marca_ricocat": null
+    },
+    {
+      "nombre": "Vivanda",
+      "tipo": "Supermercado",
+      "pagina_marca_ricocat": null
+    },
+    {
+      "nombre": "Superpet",
+      "tipo": "Pet shop",
+      "pagina_marca_ricocat": "https://www.superpet.pe/marcas/ricocat"
+    },
+    {
+      "nombre": "Naricitas",
+      "tipo": "Pet shop",
+      "pagina_marca_ricocat": "https://naricitas.pet/marca/ricocat/"
+    },
+    {
+      "nombre": "GoPet",
+      "tipo": "Pet shop",
+      "pagina_marca_ricocat": "https://www.gopet.pe/ricocat"
+    },
+    {
+      "nombre": "Mascotify",
+      "tipo": "Pet shop",
+      "pagina_marca_ricocat": "https://mascotify.pe/marcas/ricocat/"
+    },
+    {
+      "nombre": "Promart",
+      "tipo": "Otras tiendas",
+      "pagina_marca_ricocat": null
+    },
+    {
+      "nombre": "Makro",
+      "tipo": "Supermercado",
+      "pagina_marca_ricocat": null
+    },
+    {
+      "nombre": "Mascota Veloz",
+      "tipo": "Pet shop",
+      "pagina_marca_ricocat": null
+    },
+    {
+      "nombre": "Pikotin",
+      "tipo": "Pet shop",
+      "pagina_marca_ricocat": null
+    },
+    {
+      "nombre": "Casa Mascotas",
+      "tipo": "Pet shop",
+      "pagina_marca_ricocat": null
+    },
+    {
+      "nombre": "Petlover",
+      "tipo": "Pet shop",
+      "pagina_marca_ricocat": null
+    },
+    {
+      "nombre": "Vamos Pet Shop",
+      "tipo": "Pet shop",
+      "pagina_marca_ricocat": null
+    },
+    {
+      "nombre": "Choco.pet",
+      "tipo": "Pet shop",
+      "pagina_marca_ricocat": null
+    },
+    {
+      "nombre": "Real Plaza",
+      "tipo": "Otras tiendas",
+      "pagina_marca_ricocat": null
+    },
+    {
+      "nombre": "Convet",
+      "tipo": "Pet shop",
+      "pagina_marca_ricocat": null
+    },
+    {
+      "nombre": "Vega",
+      "tipo": "Supermercado",
+      "pagina_marca_ricocat": null
+    },
+    {
+      "nombre": "Oechsle",
+      "tipo": "Otras tiendas",
+      "pagina_marca_ricocat": null
+    },
+    {
+      "nombre": "Falabella",
+      "tipo": "Otras tiendas",
+      "pagina_marca_ricocat": null
+    },
+    {
+      "nombre": "Garuka",
+      "tipo": "Pet shop",
+      "pagina_marca_ricocat": null
+    },
+    {
+      "nombre": "Rappi",
+      "tipo": "Delivery",
+      "pagina_marca_ricocat": null
+    }
+  ],
+  "productos": [
+    {
+      "id": "S1",
+      "nombre": "ALIMENTO SECO SABOR ATÚN, SARDINA Y TRUCHA – ADULTOS",
+      "distribuidores": [
+        {
+          "tienda": "Plaza Vea",
+          "url": "https://www.plazavea.com.pe/comida-para-gatos-ricocat-adultos-atun-sardina-y-trucha-bolsa-1kg/p",
+          "revisar": false
+        },
+        {
+          "tienda": "Tottus",
+          "url": "https://tottus.falabella.com.pe/tottus-pe/product/113366080/ricocat-alimento-de-atun-sardina-y-trucha-para-gatos-de-1-a-mas-anos-40450991/113366081",
+          "revisar": false
+        },
+        {
+          "tienda": "Metro",
+          "url": "https://www.metro.pe/ricocat-adulto-atun-sardina-trucha-1kg/p",
+          "revisar": false
+        },
+        {
+          "tienda": "Vivanda",
+          "url": "https://www.vivanda.com.pe/comida-para-gatos-ricocat-adultos-atun-sardina-y-trucha-bolsa-1kg/p",
+          "revisar": false
+        },
+        {
+          "tienda": "Superpet",
+          "url": "https://www.superpet.pe/gato/alimentos-y-snacks/alimento-seco/ricocat-adultos-atun-sardina-y-trucha-alimento-seco-gato/AG000144_m.html",
+          "revisar": false
+        },
+        {
+          "tienda": "Naricitas",
+          "url": "https://naricitas.pet/producto/ricocat-adulto-atun-sardina-y-trucha/",
+          "revisar": false
+        },
+        {
+          "tienda": "GoPet",
+          "url": "https://www.gopet.pe/ricocat-adulto-atun-sardina-y-trucha-15-kg-20200322/p",
+          "revisar": false
+        }
+      ]
+    },
+    {
+      "id": "S2",
+      "nombre": "ALIMENTO SECO FESTIVAL DE SABORES – ADULTOS",
+      "distribuidores": [
+        {
+          "tienda": "Plaza Vea",
+          "url": "https://www.plazavea.com.pe/comida-para-gatos-ricocat-adultos-festival-de-sabores-bolsa-1kg/p",
+          "revisar": false
+        },
+        {
+          "tienda": "Tottus",
+          "url": "https://tottus.falabella.com.pe/tottus-pe/product/113366919/ricocat-festival-de-sabores-1kg/113366920",
+          "revisar": false
+        },
+        {
+          "tienda": "Metro",
+          "url": "https://www.metro.pe/ricocat-alimento-para-gatos-adultos-festival-de-sabores-bolsa-1-kg/p",
+          "revisar": false
+        },
+        {
+          "tienda": "Wong",
+          "url": "https://www.wong.pe/ricocat-alimento-para-gatos-adultos-festival-de-sabores-bolsa-1-kg-2/p",
+          "revisar": false
+        },
+        {
+          "tienda": "Superpet",
+          "url": "https://www.superpet.pe/gato/alimentos-y-snacks/alimento-seco/ricocat-adultos-festival-de-sabores-alimento-seco-gato/AG000149_m.html",
+          "revisar": false
+        },
+        {
+          "tienda": "Naricitas",
+          "url": "https://naricitas.pet/producto/ricocat-adulto-festival-de-sabores/",
+          "revisar": false
+        },
+        {
+          "tienda": "GoPet",
+          "url": "https://www.gopet.pe/ricocat-adulto-festival-de-sabores-9-kg-20200325/p",
+          "revisar": false
+        }
+      ]
+    },
+    {
+      "id": "S3",
+      "nombre": "ALIMENTO SECO ESTERILIZADOS – ADULTOS",
+      "distribuidores": [
+        {
+          "tienda": "Plaza Vea",
+          "url": "https://www.plazavea.com.pe/comida-para-gatos-ricocat-adultos-esterilizados-bolsa-1kg/p",
+          "revisar": false
+        },
+        {
+          "tienda": "Tottus",
+          "url": "https://tottus.falabella.com.pe/tottus-pe/product/113369340/ricocat-esterilizados-05kg/113369341",
+          "revisar": false
+        },
+        {
+          "tienda": "Metro",
+          "url": "https://www.metro.pe/ricocat-alimento-para-gatos-adultos-esterilizados-bolsa-1-kg/p",
+          "revisar": false
+        },
+        {
+          "tienda": "Wong",
+          "url": "https://www.wong.pe/ricocat-alimento-para-gatos-adultos-esterilizados-bolsa-1-kg-2/p",
+          "revisar": false
+        },
+        {
+          "tienda": "Vivanda",
+          "url": "https://www.vivanda.com.pe/comida-para-gatos-ricocat-adultos-esterilizados-bolsa-1kg-42409/p",
+          "revisar": false
+        },
+        {
+          "tienda": "Superpet",
+          "url": "https://www.superpet.pe/gato/alimentos-y-snacks/alimento-seco/ricocat-adultos-esterilizados-alimento-seco-gato/AG000152_m.html",
+          "revisar": false
+        },
+        {
+          "tienda": "Naricitas",
+          "url": "https://naricitas.pet/producto/ricocat-adulto-esterilizado/",
+          "revisar": false
+        },
+        {
+          "tienda": "GoPet",
+          "url": "https://www.gopet.pe/ricocat-adulto-esterilizado-9-kg-20200324/p",
+          "revisar": false
+        }
+      ]
+    },
+    {
+      "id": "S4",
+      "nombre": "ALIMENTO SECO SABOR POLLO, SARDINA Y SALMÓN – ADULTOS",
+      "distribuidores": [
+        {
+          "tienda": "Plaza Vea",
+          "url": "https://www.plazavea.com.pe/comida-para-gatos-ricocat-adultos-sabor-pollo-sardina-y-salmon-bolsa-1kg/p",
+          "revisar": false
+        },
+        {
+          "tienda": "Tottus",
+          "url": "https://tottus.falabella.com.pe/tottus-pe/product/113371086/ricocat-croquetas-sabor-pollo-sardina-y-salmon-para-gato-adulto-41876540/113371087",
+          "revisar": false
+        },
+        {
+          "tienda": "Metro",
+          "url": "https://www.metro.pe/ricocat-alimento-para-gatos-adultos-pollo-sardina-y-salmon-bolsa-1-kg/p",
+          "revisar": false
+        },
+        {
+          "tienda": "Wong",
+          "url": "https://www.wong.pe/ricocat-alimento-para-gatos-adultos-pollo-sardina-y-salmon-bolsa-9-kg-2/p",
+          "revisar": false
+        },
+        {
+          "tienda": "Vivanda",
+          "url": "https://www.vivanda.com.pe/comida-para-gatos-ricocat-adultos-sabor-pollo-sardina-y-salmon-bolsa-1kg-42437/p",
+          "revisar": false
+        },
+        {
+          "tienda": "Superpet",
+          "url": "https://www.superpet.pe/gato/alimentos-y-snacks/alimento-seco/ricocat-adultos-pollo-sardina-y-salmon-1-kg/AG000141.html",
+          "revisar": false
+        },
+        {
+          "tienda": "GoPet",
+          "url": "https://www.gopet.pe/ricocat-adulto-pollo-sardina-y-salmon-9-kg-20200327/p",
+          "revisar": false
+        }
+      ]
+    },
+    {
+      "id": "S5",
+      "nombre": "ALIMENTO SECO SABOR CARNE, SALMÓN Y LECHE – ADULTOS",
+      "distribuidores": [
+        {
+          "tienda": "Plaza Vea",
+          "url": "https://www.plazavea.com.pe/comida-para-gatos-ricocat-carne-salmon-y-leche-bolsa-1kg/p",
+          "revisar": false
+        },
+        {
+          "tienda": "Tottus",
+          "url": "https://www.tottus.com.pe/tottus-pe/articulo/115845378/RICOCAT%20CARNE%20SALMON%20Y%20LECHE%20X%201KG/115845379",
+          "revisar": false
+        },
+        {
+          "tienda": "Metro",
+          "url": "https://www.metro.pe/ricocat-alimento-para-gatos-adultos-carne-salmon-y-leche-bolsa-1-kg/p",
+          "revisar": false
+        },
+        {
+          "tienda": "Vivanda",
+          "url": "https://www.vivanda.com.pe/comida-para-gatos-ricocat-adultos-carne-salmon-y-leche-bolsa-1kg-42410/p",
+          "revisar": false
+        },
+        {
+          "tienda": "Superpet",
+          "url": "https://www.superpet.pe/gato/alimentos-y-snacks/alimento-seco/ricocat-adultos-carne-salmon-y-leche-alimento-seco-gato/AG000146_m.html",
+          "revisar": false
+        },
+        {
+          "tienda": "Naricitas",
+          "url": "https://naricitas.pet/producto/ricocat-adulto-carne-salmon-y-leche/",
+          "revisar": false
+        },
+        {
+          "tienda": "GoPet",
+          "url": "https://www.gopet.pe/ricocat-adulto-carne-salmon-y-leche-9-kg-20200323/p",
+          "revisar": false
+        }
+      ]
+    },
+    {
+      "id": "S6",
+      "nombre": "ALIMENTO SECO SABOR CARNE, PESCADO Y LECHE – GATITOS",
+      "distribuidores": [
+        {
+          "tienda": "Plaza Vea",
+          "url": "https://www.plazavea.com.pe/comida-para-gatos-ricocat-gatitos-carne-pescado-y-leche-bolsa-1kg/p",
+          "revisar": false
+        },
+        {
+          "tienda": "Tottus",
+          "url": "https://tottus.falabella.com.pe/tottus-pe/product/113379113/comida-para-gatitos-ricocat-sabor-carne-pescado-y-leche-1-kg/113379114",
+          "revisar": false
+        },
+        {
+          "tienda": "Metro",
+          "url": "https://www.metro.pe/ricocat-gatito-carne-pescado-y-leche-3kg/p",
+          "revisar": false
+        },
+        {
+          "tienda": "Wong",
+          "url": "https://www.wong.pe/alimento-para-gatitos-ricocat-carne-pescado-y-leche-3kg/p",
+          "revisar": false
+        },
+        {
+          "tienda": "Vivanda",
+          "url": "https://www.vivanda.com.pe/comida-para-gatos-ricocat-gatitos-carne-pescado-y-leche-bolsa-1kg/p",
+          "revisar": false
+        },
+        {
+          "tienda": "Superpet",
+          "url": "https://www.superpet.pe/gato/alimentos-y-snacks/alimento-seco/ricocat-gatitos-carne-pescado-y-leche-alimento-seco-gato/AG000155_m.html",
+          "revisar": false
+        },
+        {
+          "tienda": "Naricitas",
+          "url": "https://naricitas.pet/producto/ricocat-gatitos-carne-pescado-y-leche/",
+          "revisar": false
+        },
+        {
+          "tienda": "GoPet",
+          "url": "https://www.gopet.pe/ricocat-gatitos-15-kg-20200330/p",
+          "revisar": false
+        }
+      ]
+    },
+    {
+      "id": "H1",
+      "nombre": "PATÉ SABOR POLLO Y CARNE 180 G – GATITOS",
+      "distribuidores": [
+        {
+          "tienda": "Plaza Vea",
+          "url": "https://www.plazavea.com.pe/comida-para-gatos-ricocat-gatitos-pollo-y-carne-lata-180g/p",
+          "revisar": false
+        },
+        {
+          "tienda": "Tottus",
+          "url": "https://www.tottus.com.pe/tottus-pe/articulo/126571947/Ricocat-Pate-Sabor-Pollo-Carne-Gatitos-Lata-180-g",
+          "revisar": false
+        },
+        {
+          "tienda": "Promart",
+          "url": "https://www.promart.pe/alimento-humedo-para-gato-ricocat-gatito-sabor-pollo-y-carne-lata-180g-1001359232/p",
+          "revisar": true
+        }
+      ]
+    },
+    {
+      "id": "H2",
+      "nombre": "TROCITOS EN SALSA SABOR CARNE 190 G – GATITOS",
+      "distribuidores": [
+        {
+          "tienda": "Naricitas",
+          "url": "https://naricitas.pet/producto/ricocat-lata-gatitos-trocitos-sabor-carne-190gr/",
+          "revisar": false
+        },
+        {
+          "tienda": "Metro",
+          "url": "https://www.metro.pe/trocitos-en-salsa-ricocat-sabor-carne-190g-1002214/p",
+          "revisar": true
+        },
+        {
+          "tienda": "Vivanda",
+          "url": "https://www.vivanda.com.pe/comida-para-gatos-ricocat-cachorro-todas-las-razas-carne-lata-190g/p",
+          "revisar": true
+        },
+        {
+          "tienda": "GoPet",
+          "url": "https://www.gopet.pe/ricocat-carne-gatitos-trocitos-160-gr-20200342/p",
+          "revisar": true
+        },
+        {
+          "tienda": "Mascotify",
+          "url": "https://mascotify.pe/gatos/alimento-gatos/alimento-humedo-gatos/ricocat-trocitos-en-salsa-carne-para-gatitos/",
+          "revisar": true
+        }
+      ]
+    },
+    {
+      "id": "H3",
+      "nombre": "TROCITOS EN SALSA SABOR CARNE 85 G – GATITOS",
+      "distribuidores": [
+        {
+          "tienda": "Plaza Vea",
+          "url": "https://www.plazavea.com.pe/comida-para-gatos-ricocat-trocitos-carne-gatitos-pocuh-85-g/p",
+          "revisar": false
+        },
+        {
+          "tienda": "Wong",
+          "url": "https://www.wong.pe/pouc-ricocat-troz-sals-carne-gatti-x-85gr/p",
+          "revisar": false
+        },
+        {
+          "tienda": "Superpet",
+          "url": "https://www.superpet.pe/gato/alimentos-y-snacks/alimento-humedo/ricocat-cachorro-trocitos-salsa-en-carne-pouch-85-g/AG000264.html",
+          "revisar": false
+        },
+        {
+          "tienda": "Mascotify",
+          "url": "https://mascotify.pe/gatos/alimento-gatos/alimento-humedo-gatos/ricocat-trocitos-en-salsa-de-carne-para-gatitos/",
+          "revisar": true
+        }
+      ]
+    },
+    {
+      "id": "H4",
+      "nombre": "PATÉ SABOR HÍGADO Y POLLO 330 G – ADULTOS",
+      "distribuidores": [
+        {
+          "tienda": "Plaza Vea",
+          "url": "https://www.plazavea.com.pe/comida-para-gatos-ricocat-adultos-pate-higado-y-pollo-lata-330g/p",
+          "revisar": false
+        },
+        {
+          "tienda": "Tottus",
+          "url": "https://tottus.falabella.com.pe/tottus-pe/product/113368729/ricocat-higado-y-pollo-latax1164-oz/113368730",
+          "revisar": false
+        },
+        {
+          "tienda": "Metro",
+          "url": "https://www.metro.pe/ricocat-pate-para-gatos-adultos-higado-y-pollo-lata-330-gr/p",
+          "revisar": false
+        },
+        {
+          "tienda": "Vivanda",
+          "url": "https://www.vivanda.com.pe/comida-para-gatos-ricocat-adultos-pate-higado-y-pollo-lata-330g/p",
+          "revisar": false
+        },
+        {
+          "tienda": "Superpet",
+          "url": "https://www.superpet.pe/gato/alimentos-y-snacks/alimento-humedo/ricocat-adulto-pate-higado-pollo-alimento-humedo-gato/AG000256_m.html",
+          "revisar": false
+        },
+        {
+          "tienda": "Naricitas",
+          "url": "https://naricitas.pet/producto/ricocat-lata-pate-higado-y-pollo-330gr/",
+          "revisar": false
+        },
+        {
+          "tienda": "GoPet",
+          "url": "https://www.gopet.pe/ricocat-adulto-pate-higado-y-pollo-lata-330-gr-20170333/p",
+          "revisar": false
+        },
+        {
+          "tienda": "Mascotify",
+          "url": "https://mascotify.pe/gatos/alimento-gatos/alimento-humedo-gatos/ricocat-pate-higado-y-pollo-alimento-para-gatos/",
+          "revisar": false
+        }
+      ]
+    },
+    {
+      "id": "H5",
+      "nombre": "PATÉ SABOR PAVO E HÍGADO 330 G – ADULTOS",
+      "distribuidores": [
+        {
+          "tienda": "Plaza Vea",
+          "url": "https://www.plazavea.com.pe/comida-para-gatos-ricocat-adultos-pate-pavo-e-higado-lata-330g/p",
+          "revisar": false
+        },
+        {
+          "tienda": "Tottus",
+          "url": "https://www.tottus.com.pe/tottus-pe/articulo/113368870/pate-para-gatos-adultos-ricocat-sabor-higado-y-pavo-330-g/113368871",
+          "revisar": false
+        },
+        {
+          "tienda": "Wong",
+          "url": "https://www.wong.pe/ricocat-pate-para-gatos-adultos-pavo-e-higado-lata-330-gr-2-2/p",
+          "revisar": false
+        },
+        {
+          "tienda": "Vivanda",
+          "url": "https://www.vivanda.com.pe/comida-para-gatos-ricocat-adultos-pate-pavo-e-higado-lata-330g/p",
+          "revisar": false
+        },
+        {
+          "tienda": "Superpet",
+          "url": "https://www.superpet.pe/gato/alimentos-y-snacks/alimento-humedo/ricocat-adulto-pate-pavo-higado-330-g/AG000257.html",
+          "revisar": false
+        },
+        {
+          "tienda": "Naricitas",
+          "url": "https://naricitas.pet/producto/ricocat-lata-pate-pavo-e-higado-330gr/",
+          "revisar": false
+        },
+        {
+          "tienda": "GoPet",
+          "url": "https://www.gopet.pe/ricocat-adulto-pate-pavo-e-higado-lata-330-gr-20170334/p",
+          "revisar": false
+        },
+        {
+          "tienda": "Mascotify",
+          "url": "https://mascotify.pe/gatos/alimento-gatos/alimento-humedo-gatos/ricocat-pate-higado-y-pavo-alimento-para-gatos/",
+          "revisar": false
+        }
+      ]
+    },
+    {
+      "id": "H6",
+      "nombre": "PATÉ SABOR SARDINA Y POLLO 330 G – ADULTOS",
+      "distribuidores": [
+        {
+          "tienda": "Plaza Vea",
+          "url": "https://www.plazavea.com.pe/comida-para-gatos-ricocat-adultos-pate-sardina-y-pollo-lata-330g/p",
+          "revisar": false
+        },
+        {
+          "tienda": "Metro",
+          "url": "https://www.metro.pe/ricocat-pate-para-gatos-adultos-sardina-y-pollo-lata-330-gr/p",
+          "revisar": false
+        },
+        {
+          "tienda": "Wong",
+          "url": "https://www.wong.pe/ricocat-pate-para-gatos-adultos-sardina-y-pollo-lata-330-gr-2-2/p",
+          "revisar": false
+        },
+        {
+          "tienda": "Vivanda",
+          "url": "https://www.vivanda.com.pe/comida-para-gatos-ricocat-adultos-pate-sardina-y-pollo-lata-330g/p",
+          "revisar": false
+        },
+        {
+          "tienda": "Superpet",
+          "url": "https://www.superpet.pe/gato/alimentos-y-snacks/alimento-humedo/ricocat-adulto-pate-sardina-pollo-330-g/AG000259.html",
+          "revisar": false
+        },
+        {
+          "tienda": "Naricitas",
+          "url": "https://naricitas.pet/producto/ricocat-lata-pate-sardina-y-pollo-330gr/",
+          "revisar": false
+        },
+        {
+          "tienda": "GoPet",
+          "url": "https://www.gopet.pe/ricocat-adulto-pate-sardina-y-pollo-lata-330-gr-20170332/p",
+          "revisar": false
+        },
+        {
+          "tienda": "Mascotify",
+          "url": "https://mascotify.pe/gatos/alimento-gatos/alimento-humedo-gatos/ricocat-pate-sardina-y-pollo-alimento-para-gatos/",
+          "revisar": false
+        },
+        {
+          "tienda": "Tottus",
+          "url": "https://tottus.falabella.com.pe/tottus-pe/product/116167881/ricocat-premium-pescado-y-pollo-x-1164oz/116167883",
+          "revisar": true
+        }
+      ]
+    },
+    {
+      "id": "H7",
+      "nombre": "PATÉ SABOR ATÚN Y PESCADO 180 G – ADULTOS",
+      "distribuidores": [
+        {
+          "tienda": "Promart",
+          "url": "https://www.promart.pe/pate-para-gato-adulto-ricocat-atun-y-pescado-180gr-1001132008/p",
+          "revisar": false
+        },
+        {
+          "tienda": "Superpet",
+          "url": "https://www.superpet.pe/gato/alimentos-y-snacks/alimento-humedo/ricocat-atun-y-pescado-adulto-pate-lta-5.64-oz-159-g/AG000514.html",
+          "revisar": true
+        },
+        {
+          "tienda": "GoPet",
+          "url": "https://www.gopet.pe/ricocat-adulto-pate-atun-y-pescado-160-gr-20200338/p",
+          "revisar": true
+        },
+        {
+          "tienda": "Makro",
+          "url": "https://www.makro.plazavea.com.pe/alimento-humedo-para-gato-ricocat-adulto-sabor-atun-y-pescado-lata-180g/p",
+          "revisar": true
+        },
+        {
+          "tienda": "Mascotify",
+          "url": "https://mascotify.pe/gatos/alimento-gatos/alimento-humedo-gatos/ricocat-pate-atun-y-pescado-alimento-para-gatos/",
+          "revisar": true
+        },
+        {
+          "tienda": "Mascota Veloz",
+          "url": "https://mascotaveloz.pe/ricocat-atun-y-pescado-adulto-pate/",
+          "revisar": true
+        },
+        {
+          "tienda": "Pikotin",
+          "url": "https://pikotin.pe/ricocat-lata-adulto-pate-atun-y-pescado-160gr-alimento-humedo-gato/",
+          "revisar": true
+        },
+        {
+          "tienda": "Casa Mascotas",
+          "url": "https://www.casamascotas.pe/shop/ricocat-lata-pate-atun-y-pescado-160-g-12233",
+          "revisar": true
+        },
+        {
+          "tienda": "Petlover",
+          "url": "https://petlover.pe/products/ricocat-adulto-pate-sabor-atun-y-pescado-lata-x-5-64-oz-160g",
+          "revisar": true
+        },
+        {
+          "tienda": "Vamos Pet Shop",
+          "url": "https://vamospetshop.pe/gatos/ricocat-pate-de-atun-y-pescado-160gr-pid-51",
+          "revisar": true
+        }
+      ]
+    },
+    {
+      "id": "H8",
+      "nombre": "PATÉ SABOR SALMÓN 180 G – ADULTOS",
+      "distribuidores": [
+        {
+          "tienda": "Superpet",
+          "url": "https://www.superpet.pe/gato/alimentos-y-snacks/alimento-humedo/ricocat-salmon-adulto-pate-lta-5.64-oz-159-g/AG000513.html",
+          "revisar": true
+        },
+        {
+          "tienda": "Mascotify",
+          "url": "https://mascotify.pe/gatos/alimento-gatos/alimento-humedo-gatos/ricocat-pate-salmon-alimento-para-gatos-adultos/",
+          "revisar": true
+        },
+        {
+          "tienda": "Choco.pet",
+          "url": "https://choco.pet/producto/ricocat-salmon-adulto-pate-lta-5-64-oznuevo/",
+          "revisar": true
+        },
+        {
+          "tienda": "Vamos Pet Shop",
+          "url": "https://vamospetshop.pe/gatos/ricocat-pate-de-salmon-160gr-pid-50",
+          "revisar": true
+        },
+        {
+          "tienda": "Real Plaza",
+          "url": "https://www.realplaza.com/ricocat-pate-salmon-adultos-lta-160-gr-124111/p",
+          "revisar": true
+        },
+        {
+          "tienda": "Convet",
+          "url": "https://tottus-jockey.convet.com.pe/producto/ricocat-adult-pate-salmon-lta-x-5-64-oz/",
+          "revisar": true
+        }
+      ]
+    },
+    {
+      "id": "H9",
+      "nombre": "FILETITOS EN SALSA SABOR ATÚN 190 G – ADULTOS",
+      "distribuidores": [
+        {
+          "tienda": "Naricitas",
+          "url": "https://naricitas.pet/producto/ricocat-lata-adulto-filetitos-de-atun-en-salsa-190gr/",
+          "revisar": false
+        },
+        {
+          "tienda": "Vega",
+          "url": "https://www.vega.pe/comida-para-gatos-ricocat-adulto-todas-las-razas-sabor-a-atun-lata-190gr-650034/p",
+          "revisar": true
+        },
+        {
+          "tienda": "Oechsle",
+          "url": "https://www.oechsle.pe/comida-para-perros-ricocat-adulto-todas-las-razas-atun-lata-190g-1000684589/p",
+          "revisar": true
+        }
+      ]
+    },
+    {
+      "id": "H10",
+      "nombre": "FILETITOS EN SALSA SABOR PAVO 190 G – ADULTOS",
+      "distribuidores": [
+        {
+          "tienda": "Superpet",
+          "url": "https://www.superpet.pe/gato/alimentos-y-snacks/alimento-humedo/ricocat-pavo-adulto%C2%A0filetitos-en-salsa-lta-x-5.64-oz-159-g/AG000515.html",
+          "revisar": true
+        },
+        {
+          "tienda": "Naricitas",
+          "url": "https://naricitas.pet/producto/ricocat-lata-adulto-filetitos-de-pavo-en-salsa-160gr/",
+          "revisar": true
+        },
+        {
+          "tienda": "GoPet",
+          "url": "https://www.gopet.pe/ricocat-adulto-pavo-filetitos-en-salsa-5-64-oz/p",
+          "revisar": true
+        }
+      ]
+    },
+    {
+      "id": "H11",
+      "nombre": "TROCITOS EN SALSA SABOR PESCADO 190 G – ADULTOS",
+      "distribuidores": [
+        {
+          "tienda": "Falabella",
+          "url": "https://www.falabella.com.pe/falabella-pe/product/125855709/ricocat-troc-en-salsa-pescado-adulto-190gr/125855711",
+          "revisar": false
+        },
+        {
+          "tienda": "Metro",
+          "url": "https://www.metro.pe/ricocat-trocitos-en-salsa-para-gatos-adultos-sabor-pescado-lata-160-gr/p",
+          "revisar": true
+        },
+        {
+          "tienda": "GoPet",
+          "url": "https://www.gopet.pe/ricocat-pescado-adulto-trocitos-160-gr-20200343/p",
+          "revisar": true
+        },
+        {
+          "tienda": "Oechsle",
+          "url": "https://www.oechsle.pe/comida-humeda-para-gatos-ricocat-trocitos-en-salsa-lata-adultos-sabor-pescado-160-gr-1000557848/p",
+          "revisar": true
+        }
+      ]
+    },
+    {
+      "id": "H12",
+      "nombre": "TROCITOS EN SALSA SABOR POLLO 190 G – ADULTOS",
+      "distribuidores": [
+        {
+          "tienda": "Tottus",
+          "url": "https://tottus.falabella.com.pe/tottus-pe/product/125855710/ricocat-troc-en-salsa-sb-pollo-adulto-190gr/125855713",
+          "revisar": false
+        },
+        {
+          "tienda": "Metro",
+          "url": "https://www.metro.pe/trocitos-en-salsa-ricocat-adultos-sabor-pollo-190g-1002216/p",
+          "revisar": false
+        },
+        {
+          "tienda": "Naricitas",
+          "url": "https://naricitas.pet/producto/ricocat-lata-adulto-trocitos-sabor-pollo-190gr/",
+          "revisar": false
+        },
+        {
+          "tienda": "GoPet",
+          "url": "https://www.gopet.pe/ricocat-pollo-adulto-trocitos-160-gr-20200344/p",
+          "revisar": true
+        }
+      ]
+    },
+    {
+      "id": "H13",
+      "nombre": "FILETITOS EN SALSA SABOR ATÚN 85 G – ADULTOS",
+      "distribuidores": [
+        {
+          "tienda": "Naricitas",
+          "url": "https://naricitas.pet/producto/ricocat-pouch-adulto-filetitos-en-salsa-atun-85gr/",
+          "revisar": false
+        },
+        {
+          "tienda": "Tottus",
+          "url": "https://tottus.falabella.com.pe/tottus-pe/product/128489075/ricocat-filetitos-sabor-atun-adulto-pouch-85-g/128489076",
+          "revisar": false
+        },
+        {
+          "tienda": "Garuka",
+          "url": "https://garuka.pe/p/ricocat-filetitos-sabor-atun-adultos-85-g/",
+          "revisar": false
+        },
+        {
+          "tienda": "Mascotify",
+          "url": "https://mascotify.pe/gatos/alimento-gatos/alimento-humedo-gatos/ricocat-filetitos-en-salsa-de-atun-gatos-adultos/",
+          "revisar": true
+        },
+        {
+          "tienda": "Rappi",
+          "url": "https://www.rappi.com.pe/p/ricocat-ricocat-filetitos-atun-pouc-1012587",
+          "revisar": true
+        }
+      ]
+    },
+    {
+      "id": "H14",
+      "nombre": "FILETITOS EN SALSA SABOR PAVO 85 G – ADULTOS",
+      "distribuidores": [
+        {
+          "tienda": "Tottus",
+          "url": "https://www.tottus.com.pe/tottus-pe/articulo/128489059/Ricocat-Filetitos-Sabor-Pavo-Adulto-Pouch-85-g/128489060",
+          "revisar": false
+        },
+        {
+          "tienda": "Naricitas",
+          "url": "https://naricitas.pet/producto/ricocat-pouch-adulto-filetitos-en-salsa-pavo-85gr/",
+          "revisar": false
+        },
+        {
+          "tienda": "Mascotify",
+          "url": "https://mascotify.pe/gatos/alimento-gatos/alimento-humedo-gatos/ricocat-filetitos-en-salsa-de-pavo-gatos-adultos/",
+          "revisar": true
+        }
+      ]
+    },
+    {
+      "id": "H15",
+      "nombre": "TROCITOS EN SALSA SABORES MARINOS 85 G – ADULTOS",
+      "distribuidores": [
+        {
+          "tienda": "Plaza Vea",
+          "url": "https://www.plazavea.com.pe/comida-para-gatos-ricocat-trocitos-marinos-adultos-pouch-85-g/p",
+          "revisar": false
+        },
+        {
+          "tienda": "Metro",
+          "url": "https://www.metro.pe/pouc-ricocat-troz-salsa-sabores-marinos-adult-x-85gr/p",
+          "revisar": false
+        },
+        {
+          "tienda": "Vivanda",
+          "url": "https://www.vivanda.com.pe/comida-para-gatos-ricocat-trocitos-marinos-adultos-pouch-85-g-42454/p",
+          "revisar": false
+        },
+        {
+          "tienda": "Superpet",
+          "url": "https://www.superpet.pe/gato/alimentos-y-snacks/alimento-humedo/ricocat-adulto-trocitos-marino-en-salsa-pouch-85-g/AG000262.html",
+          "revisar": false
+        },
+        {
+          "tienda": "Naricitas",
+          "url": "https://naricitas.pet/producto/ricocat-pouch-adulto-trocitos-salsa-marinos-85gr/",
+          "revisar": false
+        },
+        {
+          "tienda": "GoPet",
+          "url": "https://www.gopet.pe/ricocat-adulto-marinos-trocitos-pouch-85-gr-20200358/p",
+          "revisar": false
+        },
+        {
+          "tienda": "Mascotify",
+          "url": "https://mascotify.pe/gatos/alimento-gatos/alimento-humedo-gatos/ricocat-trocitos-en-salsa-de-sabores-marinos/",
+          "revisar": false
+        }
+      ]
+    },
+    {
+      "id": "H16",
+      "nombre": "TROCITOS EN SALSA SABOR POLLO 85 G – ADULTOS",
+      "distribuidores": [
+        {
+          "tienda": "Plaza Vea",
+          "url": "https://www.plazavea.com.pe/comida-para-gatos-ricocat-trocitos-pollo-adultos-pouch-85-g/p",
+          "revisar": false
+        },
+        {
+          "tienda": "Metro",
+          "url": "https://www.metro.pe/pouc-ricocat-troz-sals-pollo-adult-x-85gr/p",
+          "revisar": false
+        },
+        {
+          "tienda": "Wong",
+          "url": "https://www.wong.pe/pouc-ricocat-troz-sals-pollo-adult-x-85gr/p",
+          "revisar": false
+        },
+        {
+          "tienda": "Vivanda",
+          "url": "https://www.vivanda.com.pe/comida-para-gatos-ricocat-trocitos-pollo-adultos-pouch-85-g-42436/p",
+          "revisar": false
+        },
+        {
+          "tienda": "Superpet",
+          "url": "https://www.superpet.pe/gato/alimentos-y-snacks/alimento-humedo/ricocat-adulto-trocitos-salsa-pollo-pouch-85-g/AG000263.html",
+          "revisar": false
+        },
+        {
+          "tienda": "GoPet",
+          "url": "https://www.gopet.pe/ricocat-adulto-pollo-trocitos-pouch-85-gr-20200357/p",
+          "revisar": false
+        }
+      ]
+    },
+    {
+      "id": "H17",
+      "nombre": "TROCITOS EN SALSA SABOR SALMÓN 85 G – ADULTOS",
+      "distribuidores": [
+        {
+          "tienda": "Plaza Vea",
+          "url": "https://www.plazavea.com.pe/comida-para-gatos-ricocat-trocitos-salmon-adultos-pouch-85-g/p",
+          "revisar": false
+        },
+        {
+          "tienda": "Tottus",
+          "url": "https://tottus.falabella.com.pe/tottus-pe/product/113369042/ricocat-trocitos-en-salsa-con-salmon-para-gatos-adultos-todas-las-razas-41575413/113369043",
+          "revisar": false
+        },
+        {
+          "tienda": "Vivanda",
+          "url": "https://www.vivanda.com.pe/comida-para-gatos-ricocat-trocitos-salmon-adultos-pouch-85-g-42451/p",
+          "revisar": false
+        },
+        {
+          "tienda": "GoPet",
+          "url": "https://www.gopet.pe/ricocat-adulto-salmon-trocitos-pouch-85-gr-20200359/p",
+          "revisar": false
+        },
+        {
+          "tienda": "Mascotify",
+          "url": "https://mascotify.pe/gatos/alimento-gatos/alimento-humedo-gatos/ricocat-trocitos-en-salsa-de-salmon-gatos-adultos/",
+          "revisar": false
+        }
+      ]
+    },
+    {
+      "id": "H18",
+      "nombre": "TROCITOS EN SALSA SABOR PESCADO 85 G – ADULTOS",
+      "distribuidores": [
+        {
+          "tienda": "Metro",
+          "url": "https://www.metro.pe/ricocat-ricocat-trocitos-pescado-pouch-85g-1006848/p",
+          "revisar": false
+        },
+        {
+          "tienda": "Naricitas",
+          "url": "https://naricitas.pet/producto/ricocat-pouch-adulto-trocitos-en-salsa-pescado-85gr/",
+          "revisar": false
+        },
+        {
+          "tienda": "Rappi",
+          "url": "https://www.rappi.com.pe/p/ricocat-pouch-trocitos-en-salsa-sab-1204928",
+          "revisar": false
+        }
+      ]
+    },
+    {
+      "id": "H19",
+      "nombre": "PATÉ ESTERILIZADOS 180 G – ADULTOS",
+      "distribuidores": [
+        {
+          "tienda": "Tottus",
+          "url": "https://www.tottus.com.pe/tottus-pe/articulo/128642213/pate-esterilizado-ricocat-adulto-lata-180-g/128642214",
+          "revisar": false
+        },
+        {
+          "tienda": "Metro",
+          "url": "https://www.metro.pe/pate-ricocat-esterilizados-adulto-lata-180g-1012267/p",
+          "revisar": false
+        },
+        {
+          "tienda": "Naricitas",
+          "url": "https://naricitas.pet/producto/ricocat-lata-adulto-pate-esterilizado-180gr/",
+          "revisar": false
+        },
+        {
+          "tienda": "GoPet",
+          "url": "https://www.gopet.pe/ricocat-adulto-pate-esterilizado-180-gr/p",
+          "revisar": false
+        },
+        {
+          "tienda": "Mascotify",
+          "url": "https://mascotify.pe/gatos/alimento-gatos/alimento-humedo-gatos/ricocat-pate-adultos-esterilizados-alimento-humedo-para-gatos/",
+          "revisar": false
+        }
+      ]
+    }
+  ],
+  "nota": "Solo links directos a la página del producto. Si un producto no está en una tienda, esa tienda no aparece."
+}
