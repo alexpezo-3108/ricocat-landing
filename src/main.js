@@ -57,7 +57,10 @@ export function mountLanding(root, { reduce = false, options = {} } = {}) {
   setOptions();
 
   const heroLogo = () => hero.querySelector('[data-intro="logo"] img');
-  const pre = createPreloader({ reduce, target: heroLogo });
+  // el preloader se ve una sola vez por sesión; en visitas siguientes la página entra directo con la intro del hero
+  const SEEN_KEY = 'ricocat-preloader-seen';
+  let seen = false; try { seen = sessionStorage.getItem(SEEN_KEY) === '1'; } catch (e) {}
+  const pre = createPreloader({ reduce: reduce || seen, target: heroLogo });
   // pantalla blanca de arranque (evita el flash celeste antes del preloader); el preloader ya la cubre
   document.querySelectorAll('[data-boot-cover]').forEach(el => el.remove());
   { // progreso real: imágenes del hero cargadas
@@ -69,7 +72,9 @@ export function mountLanding(root, { reduce = false, options = {} } = {}) {
   // tope: si las imágenes tardan demasiado, el preloader no se queda pegado
   // también espera lo esencial del plato (entrada + muestra de cada escena); tope de 8 s
   const bowlReady = () => window.__ricocatBowlReady || Promise.resolve();
-  const imagesOrTimeout = Promise.race([Promise.all([waitForImages(content), new Promise(r => setTimeout(r, 0)).then(bowlReady)]), new Promise(r => setTimeout(r, 8000))]);
+  const imagesOrTimeout = seen
+    ? Promise.race([waitForImages(content), new Promise(r => setTimeout(r, 1200))]) // repetida: no espera el plato
+    : Promise.race([Promise.all([waitForImages(content), new Promise(r => setTimeout(r, 0)).then(bowlReady)]), new Promise(r => setTimeout(r, 8000))]);
   // relevo: el logo del hero se oculta mientras el del preloader termina de llegar encima
   const handoff = p => {
     const lg = heroLogo(); if (lg) lg.style.opacity = '0';
@@ -81,11 +86,12 @@ export function mountLanding(root, { reduce = false, options = {} } = {}) {
   // red de seguridad: si la intro no terminó (pestaña oculta, etc.), se completa al volver a la pestaña
   const intro = () => {
     let anims = [];
-    try { anims = playIntro(hero, { x: BLOCKS.clusterCenterX, y: BLOCKS.clusterCenterY }, { afterPreloader: true }) || []; } catch (e) { console.error(e); }
+    try { anims = playIntro(hero, { x: BLOCKS.clusterCenterX, y: BLOCKS.clusterCenterY }, { afterPreloader: !seen }) || []; } catch (e) { console.error(e); }
     const check = () => { if (document.hidden) return; if (anims.some(a => a.playState !== 'finished')) setTimeout(() => { if (!document.hidden) anims.forEach(a => { try { a.finish(); } catch (e) {} }); }, 3500); document.removeEventListener('visibilitychange', check); };
     if (document.hidden) document.addEventListener('visibilitychange', check); else check();
   };
   imagesOrTimeout.then(() => pre.finish()).catch(() => {}).then(() => {
+    try { sessionStorage.setItem(SEEN_KEY, '1'); } catch (e) {}
     content.style.visibility = '';
     if (destroyed) { pre.remove(); return; }
     handoff(pre);
